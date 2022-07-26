@@ -1,0 +1,125 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Serif", sans-serif;
+  font-size: 16px;
+}
+body {
+  padding-top: 3.5rem;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.button {
+  margin-left: 10px;
+  margin-bottom: 6px;
+}
+
+.drop_down {
+  background-color: white;
+}
+
+.content-container {
+  padding-top: 20px;
+  padding-left: 220px;
+}
+
+/* .link {
+  text-decoration: none;
+  color: inherit;
+  padding: 6px;
+  display: flex;
+  border-radius: 10px;
+  width: 240px;
+} */
+
+/* .link:hover {
+  background-color: rgb(189, 184, 184);
+  color: white;
+  transition: all 0.3s ease-in;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+} */
+
+/* .active a{
+  background-color: rgb(206, 202, 202);
+  color: black;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+} */
+
+/* .SideBarIcon {
+  margin-right: 5px;
+  font-size: 26px !important;
+} */
+
+.box {
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.Delete {
+  color: red;
+  cursor: pointer;
+}
+
+.Edit {
+  color: #3bb077;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.save {
+  color: #0b5ed7;
+  cursor: pointer;
+}
+
+table {
+  text-align: center;
+}
+
+/* .center {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+} */
+
+/* .flex-center {
+  flex: 5;
+}
+
+/* To center the spinner*/
+.pos-center {
+  position: fixed;
+  top: calc(50% - 40px);
+  left: calc(50% - 40px);
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
