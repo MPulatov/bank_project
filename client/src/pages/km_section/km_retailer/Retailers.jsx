@@ -114,16 +114,16 @@ const Retailers = ({ setSearch, searching }) => {
           <thead className="table-dark">
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">ADDRESS</th>
-              <th scope="col">NAME</th>
-              <th scope="col">NUMBER</th>
-              <th scope="col">ACTIVE</th>
-              <th scope="col">DESCRIPTION</th>
-              <th scope="col">EIN</th>
-              <th scope="col">INN</th>
-              <th scope="col">KM_RETAILER_ID</th>
-              <th scope="col">RNM</th>
-              {userInfo?.IsAdmin && <th scope="col-sm-1">ACTION</th>}
+              <th scope="col">Адрес</th>
+              <th scope="col">Название</th>
+              <th scope="col">Номер</th>
+              <th scope="col">Статус</th>
+              <th scope="col">Описание</th>
+              <th scope="col">Эйн</th>
+              <th scope="col">Инн</th>
+              <th scope="col">Идентификатор продавца</th>
+              <th scope="col">Рнм</th>
+              {userInfo?.IsAdmin && <th scope="col-sm-1">Действие</th>}
             </tr>
           </thead>
           <tbody>

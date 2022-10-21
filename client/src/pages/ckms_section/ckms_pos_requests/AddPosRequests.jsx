@@ -22,11 +22,16 @@ const initialState = {
   term_sn: "",
 };
 
+const initialStateImei = {
+  imei: "",
+};
+
 const AddPosRequests = () => {
   const [otpCode, setOtpCode] = useState(generateRandomStringCKMS());
   // FETCHING DATA
   const [Terminal, setTerminal] = useState([]);
   const [value, setValue] = useState(initialState);
+  const [terminalsImei, setTerminalsImei] = useState(initialStateImei);
   const [changeId, setChangeId] = useState(null);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -63,16 +68,38 @@ const AddPosRequests = () => {
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-      if (changeId != null) {
+      if (terminalsImei.imei != null) {
         $host
-          .get(`/posrequests/${changeId}`, config)
+          .get(`/posrequests/${terminalsImei.imei}`, config)
           .then((res) => setValue({ ...res.data[0] }))
           .catch((error) => setError(error.response.data.message));
       }
       return;
     }
     getPosRequestsById();
-  }, [setValue, changeId]);
+  }, [setValue, terminalsImei]);
+
+  useEffect(() => {
+    async function getTerminalById() {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      await $host
+        .get(`/favri/terminal/${changeId}`, config)
+        .then((res) => setTerminalsImei({ ...res.data.results.data[0] }))
+        .catch((error) =>
+          // setError(
+          //   error.response && error.response.data.message
+          //     ? error.response.data.message
+          //     : error.message
+          // )
+          console.log(error.message)
+        );
+    }
+    getTerminalById();
+  }, [changeId]);
 
   useEffect(() => {
     getTerminals();
@@ -108,7 +135,7 @@ const AddPosRequests = () => {
         "/posrequests/add",
         {
           otp_code: otpCode,
-          term_imei: value.imei,
+          term_imei: terminalsImei.imei,
           ...data,
         },
         config
@@ -161,7 +188,7 @@ const AddPosRequests = () => {
               className="form-control box"
               id="termInn"
               name="term_inn"
-              defaultValue={value.term_inn}
+              defaultValue={value.inn || ""}
               {...register("term_inn")}
             />
             <ErrorMessage>{errors.term_inn?.message}</ErrorMessage>
@@ -176,7 +203,7 @@ const AddPosRequests = () => {
               className="form-control box"
               id="termEin"
               name="term_ein"
-              defaultValue={value.term_ein}
+              defaultValue={value.ein || ""}
               {...register("term_ein")}
             />
             <ErrorMessage>{errors.term_ein?.message}</ErrorMessage>
@@ -191,7 +218,7 @@ const AddPosRequests = () => {
               className="form-control box"
               id="termRnm"
               name="term_rnm"
-              defaultValue={value.term_rnm}
+              defaultValue={value.rnm || ""}
               {...register("term_rnm")}
             />
             <ErrorMessage>{errors.term_rnm?.message}</ErrorMessage>
@@ -205,7 +232,7 @@ const AddPosRequests = () => {
               className="form-control box"
               id="termSn"
               name="term_sn"
-              defaultValue={value.term_sn}
+              defaultValue={value.devicesn || ""}
               {...register("term_sn")}
             />
             <ErrorMessage>{errors.term_sn?.message}</ErrorMessage>

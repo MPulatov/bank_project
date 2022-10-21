@@ -12,7 +12,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { logout } from "../../Redux/actions/userActions";
 import { FaRegUserCircle } from "react-icons/fa";
 
-export const Header = ({ setSearch }) => {
+export const Header = ({ setSearch, Searching }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -45,6 +45,7 @@ export const Header = ({ setSearch }) => {
                   type="text"
                   placeholder="Search"
                   className="mr-sm-2"
+                  value={Searching}
                   onChange={(e) => {
                     setSearch(e.target.value);
                   }}

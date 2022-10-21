@@ -102,20 +102,20 @@ const Terminal = ({ setSearch, searching }) => {
           <thead className="table-dark">
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">Currency</th>
-              <th scope="col">Code</th>
-              <th scope="col">Model</th>
-              <th scope="col">Devicesn</th>
-              <th scope="col">Imei</th>
-              <th scope="col">Name</th>
-              <th scope="col">Location</th>
+              <th scope="col">Валюта</th>
+              <th scope="col">Код</th>
+              <th scope="col">Модель</th>
+              <th scope="col">Серийный номер устройства</th>
+              <th scope="col">Имэй</th>
+              {/* <th scope="col">Name</th> */}
+              <th scope="col">Адрес</th>
               <th scope="col">Mcc</th>
-              <th scope="col">Owner_Name</th>
-              <th scope="col">Terminal Name</th>
-              <th scope="col">Status</th>
-              <th scope="col">Type Id</th>
-              <th scope="col">Retailer_Id</th>
-              {userInfo?.IsAdmin && <th scope="col-sm-1">ACTION</th>}
+              <th scope="col">Имя владельца</th>
+              <th scope="col">Название терминала</th>
+              <th scope="col">Статус</th>
+              <th scope="col">Идентификатор типа</th>
+              <th scope="col">Идентификатор продавца</th>
+              {userInfo?.IsAdmin && <th scope="col-sm-1">Действие</th>}
             </tr>
           </thead>
           <tbody>
@@ -143,7 +143,7 @@ const Terminal = ({ setSearch, searching }) => {
                   <td>{item.device_model}</td>
                   <td>{item.devicesn}</td>
                   <td>{item.imei}</td>
-                  <td>{item.km_term_name}</td>
+                  {/* <td>{item.km_term_name}</td> */}
                   <td>{item.location}</td>
                   <td>{item.mcc}</td>
                   <td>{item.owner_name}</td>

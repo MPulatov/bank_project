@@ -27,8 +27,13 @@ const Option_products = [
   { id: 114, name: "Возврат товара" },
 ];
 
+const initialState = {
+  terminal_type_id: "",
+};
+
 const KmTerminalPermission = () => {
   const [terminalTypeId, setTerminalTypeId] = useState("");
+  const [terminalById, setTerminalById] = useState(initialState);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const navigate = useNavigate();
@@ -39,6 +44,8 @@ const KmTerminalPermission = () => {
   const InputValue = (e) => {
     setTerminalTypeId(e.target.value);
   };
+
+  const { terminal_type_id } = terminalById;
 
   const {
     register,
@@ -52,6 +59,29 @@ const KmTerminalPermission = () => {
       terminal_id: "",
     },
   });
+
+  // AXIOS
+
+  useEffect(() => {
+    async function getTerminalById() {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      await $host
+        .get(`/favri/terminal/${terminalTypeId}`, config)
+        .then((res) => setTerminalById({ ...res.data.results.data[0] }))
+        .catch((error) =>
+          console.error(
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message
+          )
+        );
+    }
+    getTerminalById();
+  }, [terminalTypeId]);
 
   // AXIOS
   async function getTerminals() {
@@ -75,10 +105,7 @@ const KmTerminalPermission = () => {
 
   useEffect(() => {
     getTerminals();
-    if (!userInfo) {
-      navigate("/login");
-    }
-  }, [userInfo, navigate]);
+  }, []);
 
   const onSubmit = async (data) => {
     try {
@@ -121,7 +148,7 @@ const KmTerminalPermission = () => {
             >
               <option value=""></option>
               {Terminal.map((item) => (
-                <option key={item.term_id} value={item.terminal_type_id}>
+                <option key={item.term_id} value={item.term_id}>
                   {item.terminal_name}
                 </option>
               ))}
@@ -142,13 +169,13 @@ const KmTerminalPermission = () => {
               {...register("transaction_code")}
             >
               <option value=""></option>
-              {terminalTypeId === "1" || terminalTypeId === "2"
+              {terminal_type_id === 1 || terminal_type_id === 2
                 ? Option_card.map((card) => (
                     <option key={card.id} value={card.id}>
                       {card.name}
                     </option>
                   ))
-                : terminalTypeId === "3" &&
+                : terminal_type_id === 3 &&
                   Option_products.map((products) => (
                     <option key={products.id} value={products.id}>
                       {products.name}

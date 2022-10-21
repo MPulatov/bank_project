@@ -94,10 +94,10 @@ const KmTerminal = ({ setSearch, searching }) => {
           <thead className="table-dark">
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">Transaction Code</th>
-              <th scope="col">Transaction Name</th>
-              <th scope="col">Terminal Name</th>
-              {userInfo?.IsAdmin && <th scope="col-sm-1">ACTION</th>}
+              <th scope="col">Код транзакции</th>
+              <th scope="col">Название транзакции</th>
+              <th scope="col">Название терминала</th>
+              {userInfo?.IsAdmin && <th scope="col-sm-1">Действие</th>}
             </tr>
           </thead>
           <tbody>

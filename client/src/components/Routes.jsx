@@ -41,6 +41,7 @@ import {
   PosRequests,
 } from "./Constants";
 import { LoginPage } from "../pages/LoginPage/LoginPage";
+import AddTransferKeys from "../pages/ckms_section/ckms_transfer_keys/AddTransferKeys";
 
 export const AllRoutes = ({ setSearch, Searching }) => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -131,6 +132,7 @@ export const AllRoutes = ({ setSearch, Searching }) => {
             <Route path="/provider/add" element={<AddProvider />} />
             <Route path="/permission/add" element={<KmTerminalPermission />} />
             <Route path="/posrequests/add" element={<AddPosRequests />} />{" "}
+            <Route path="/transfer/key/:id" element={<AddTransferKeys />} />{" "}
           </>
         </>
       )}

@@ -24,7 +24,7 @@ class KmTermianlPermissionService {
     getTerminalsPermission() {
         return new Promise((resolve, reject) => {
             poolKM.query(
-                'SELECT terminalallowedtran.terminal_allowed_tran_id, terminalallowedtran.transaction_code, terminalallowedtran.transaction_name, terminals.terminal_name FROM terminalallowedtran INNER JOIN terminals ON terminalallowedtran.terminal_allowed_tran_id = terminals.term_id ORDER BY terminal_allowed_tran_id DESC',
+                'SELECT terminalallowedtran.terminal_allowed_tran_id, terminalallowedtran.transaction_code, terminalallowedtran.transaction_name, terminals.terminal_name FROM terminalallowedtran INNER JOIN terminals ON terminalallowedtran.terminal_id = terminals.term_id ORDER BY terminal_allowed_tran_id DESC',
                 (error, results) => {
                     if (error) {
                         return reject(error)
@@ -83,5 +83,24 @@ class KmTermianlPermissionService {
         })
     }
 }
+
+//     removeTerminalPermission(id) {
+//         return new Promise((resolve, reject) => {
+//             poolKM
+//                 .query('SET FOREIGN_KEY_CHECKS = 0')
+//                 .then(() => {
+//                     poolKM.query(
+//                         'DELETE FROM terminalallowedtran WHERE terminal_allowed_tran_id = ?',
+//                         [id]
+//                     )
+//                 })
+//                 .then((results) => {
+//                     poolKM.query('SET FOREIGN_KEY_CHECKS = 1')
+//                     return resolve(results)
+//                 })
+//                 .catch((error) => reject(error))
+//         })
+//     }
+// }
 
 module.exports = new KmTermianlPermissionService()

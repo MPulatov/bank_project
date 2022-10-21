@@ -93,11 +93,11 @@ const Terminals = ({ setSearch, searching }) => {
           <thead className="table-dark">
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">TERMINALID</th>
-              <th scope="col">PROVIDERID</th>
-              <th scope="col">LOCALID</th>
-              <th scope="col">LOCALPASSWORD</th>
-              {userInfo?.IsAdmin && <th scope="col-sm-1">ACTION</th>}
+              <th scope="col">Идентификатор терминала</th>
+              <th scope="col">Идентификатор поставщика</th>
+              <th scope="col">Идентификатор локального терминала</th>
+              <th scope="col">Пароль локального терминала</th>
+              {userInfo?.IsAdmin && <th scope="col-sm-1">Действие</th>}
             </tr>
           </thead>
           <tbody>

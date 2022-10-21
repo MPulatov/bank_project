@@ -33,9 +33,9 @@ class CkmsPosRequestController {
         try {
             const { id } = req.params
             const results = await ckmsPosRequestService.getPosRequestById(id)
-            if (!results.length) {
-                return next(ApiError.notFound('Запись с таким ID не найдена'))
-            }
+            // if (!results.length) {
+            //     return next(ApiError.notFound('Запись с таким ID не найдена'))
+            // }
             return res.status(200).json(results)
         } catch (error) {
             return next(error)

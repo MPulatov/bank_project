@@ -21,7 +21,6 @@ const initialState = {
   terminal_status: "",
   terminal_type_id: "",
   retailer_id: "",
-  // pos_params_loaded: Boolean,
   ip_address: "",
   host: "",
 };
@@ -42,9 +41,9 @@ const InitializeOptions = [
 
 const TerminalsUpdate = () => {
   const [TerminalsUpdate, setTerminalsUpdate] = useState(initialState);
+  const [image, setImage] = useState("");
   const [term_qr_data, setQrCodeData] = useState(null);
   // FETCHING DATA
-  // const [Retailers, setRetailer] = useState([]);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const navigate = useNavigate();
@@ -62,7 +61,6 @@ const TerminalsUpdate = () => {
     terminal_status,
     terminal_type_id,
     retailer_id,
-    // pos_params_loaded,
     ip_address,
     host,
   } = TerminalsUpdate;
@@ -75,24 +73,6 @@ const TerminalsUpdate = () => {
   const toInputUppercase = (e) => {
     e.target.value = ("" + e.target.value).toUpperCase();
   };
-  // AXIOS
-  // async function getRetailers() {
-  //   try {
-  //     const config = {
-  //       headers: {
-  //         Authorization: `Bearer ${userInfo.token}`,
-  //       },
-  //     };
-  //     const response = await $host.get("/retailers", config);
-  //     setRetailer(response.data);
-  //   } catch (error) {
-  //     const message =
-  //       error.response && error.response.data.message
-  //         ? error.response.data.message
-  //         : error.message;
-  //     setError(message);
-  //   }
-  // }
 
   useEffect(() => {
     async function getTerminalById() {
@@ -103,15 +83,52 @@ const TerminalsUpdate = () => {
       };
       await $host
         .get(`/favri/terminal/${id}`, config)
-        .then((res) => setTerminalsUpdate({ ...res.data[0] }))
-        .catch((error) => setError(error.response.data.message));
+        .then((res) => setTerminalsUpdate({ ...res.data.results.data[0] }))
+        .catch((error) =>
+          setError(
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message
+          )
+        );
     }
     getTerminalById();
-    // getRetailers();
-    if (!userInfo) {
-      navigate("/login");
+  }, [id]);
+
+  useEffect(() => {
+    async function getImage() {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      await $host
+        .get(`/favri/terminal/${id}`, config)
+        .then((res) => setImage(res.data.results.b64))
+        .catch((error) =>
+          setError(
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message
+          )
+        );
     }
-  }, [id, userInfo, navigate]);
+    getImage();
+  }, [id]);
+
+  // const onChange = (e) => {
+  //   const files = e.target.files;
+  //   const file = files[0];
+  //   getbase64(file);
+  // };
+
+  // const getbase64 = (file) => {
+  //   let reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => {
+  //     setQrCodeData(reader.result);
+  //   };
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -198,26 +215,6 @@ const TerminalsUpdate = () => {
             />
           </div>
 
-          {/* <div className="col-md-6">
-            <label htmlFor="RetailerId" className="form-label">
-              Retailer Id
-            </label>
-            <select
-              onChange={handleInputChange}
-              name="retailer_id"
-              id="RetailerId"
-              className="form-select"
-              aria-label="Disabled select example"
-            >
-              {terminal_type_id === "3" &&
-                Retailers.map((item) => (
-                  <option key={item.retailer_id} value={item.retailer_id}>
-                    {item.addres}
-                  </option>
-                ))}
-            </select>
-          </div> */}
-
           <div className="col-md-6">
             <label htmlFor="RetailerId" className="form-label">
               Retailer Id
@@ -225,7 +222,7 @@ const TerminalsUpdate = () => {
             <input
               type="text"
               onChange={handleInputChange}
-              value={retailer_id}
+              value={retailer_id || ""}
               name="retailer_id"
               id="RetailerId"
               className="form-control box"
@@ -366,21 +363,6 @@ const TerminalsUpdate = () => {
             />
           </div>
 
-          {/* <div className='col-md-6'>
-                        <label htmlFor="posParamsLoaded" className="form-label">Post Params Loaded</label>
-                        <select
-                            id='posParamsLoaded'
-                            name='pos_params_loaded.data'
-                            className="form-select"
-                            aria-label="Disabled select example"
-                            value={pos_params_loaded.data}
-                            onChange={handleInputChange}
-                        >
-                            <option value={true}>True</option>
-                            <option value={false}>False</option>
-                        </select>
-                    </div> */}
-
           <div className="col-md-6">
             <label htmlFor="ipAddress" className="form-label">
               IP Address
@@ -421,6 +403,12 @@ const TerminalsUpdate = () => {
               onChange={(e) => setQrCodeData(e.target.files[0])}
               required
             />
+            {image === "" ? (
+              ""
+            ) : (
+              <img src={`data:image/jpeg;base64, ${image}`} alt="QR Code" />
+            )}
+            {/* <textarea value={term_qr_data} id="" cols="30" rows="10"></textarea> */}
           </div>
 
           <div className="col-12 d-flex justify-content-end">

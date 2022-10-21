@@ -7,28 +7,30 @@ class KmTerminalController {
     async createTerminal(req, res, next) {
         try {
             const body = req.body
-            const term_qr_data = readFileSync(req.file.path)
-            let hash = createHmac(
-                'sha256',
-                req.body.active_code,
-                req.body.terminal_name,
-                req.body.devicesn
-            )
-                .update(req.body.active_code)
-                .digest('hex')
-            const active_code = (req.body.active_code = hash)
-
-            let salt = randomBytes(16).toString('base64')
-            const active_api_hash = createHash('sha256', salt, new Date())
-                .update(req.body.active_code)
-                .digest('hex')
-            const api_key = (req.body.active_code = active_api_hash)
             const currency = '972'
+            // Get real time
+            const time = Math.floor(new Date().getTime() / 1000)
+            // Uploading QR Base64 toString
+            const base64data = readFileSync(req.file.path)
+            let term_qr_data = base64data.toString('base64')
+
+            // Hashing values Active code
+            const active_code_hash = crypto
+                .createHmac('sha256', body.terminal_name + body.devicesn)
+                .update(body.active_code)
+                .digest('hex')
+
+            // Hashing Active api
+            const active_api_hash = crypto
+                .createHash('sha256')
+                .update(body.active_code + time)
+                .digest('hex')
+
             const results = await kmTerminalService.createTerminal(
                 body,
                 term_qr_data,
-                active_code,
-                api_key,
+                active_code_hash,
+                active_api_hash,
                 currency
             )
             if (!results.affectedRows) {
@@ -61,7 +63,9 @@ class KmTerminalController {
             if (!results.length) {
                 return next(ApiError.notFound('Запись с таким ID не найдена'))
             }
-            return res.status(200).json(results)
+            const u8 = new Uint8Array(results[0].term_qr_data)
+            const b64 = Buffer.from(u8).toString('ascii')
+            return res.status(200).json({ results: { data: results, b64 } })
         } catch (error) {
             return next(error)
         }
@@ -71,7 +75,8 @@ class KmTerminalController {
         try {
             const body = req.body
             const { id } = req.params
-            const term_qr_data = readFileSync(req.file.path)
+            const base64data = readFileSync(req.file.path)
+            let term_qr_data = base64data.toString('base64')
             const results = await kmTerminalService.updateTerminalById(
                 id,
                 body,

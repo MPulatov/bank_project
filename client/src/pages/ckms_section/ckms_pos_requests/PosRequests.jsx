@@ -9,7 +9,7 @@ import {
   Paginate,
   Icons,
 } from "../../../components/Style/styledComponent/StyledComponents";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { $host } from "../../../http";
 import { MainScreen } from "../../../components/MainScreen/MainScreen";
@@ -98,16 +98,16 @@ const PosRequests = ({ setSearch, searching }) => {
           <thead className="table-dark">
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">TERM SN</th>
-              <th scope="col">TERM INN</th>
-              <th scope="col">TERM EIN</th>
-              <th scope="col">TERM RNM</th>
-              <th scope="col">TERM IMEI</th>
-              <th scope="col">OTP CODE</th>
-              <th scope="col">ACTIVE</th>
-              <th scope="col">TRANSMITTED</th>
-              <th scope="col">CREATED_AT</th>
-              {userInfo?.IsAdmin && <th scope="col">ACTION</th>}
+              <th scope="col">Терм СН</th>
+              <th scope="col">Терм ИНН</th>
+              <th scope="col">Терм ЭЙН</th>
+              <th scope="col">Терм РНМ</th>
+              <th scope="col">Терм ИМЭЙ</th>
+              <th scope="col">Отп Код</th>
+              <th scope="col">Статус</th>
+              <th scope="col">Переданный</th>
+              <th scope="col">Создан</th>
+              {userInfo?.IsAdmin && <th scope="col">Действие</th>}
             </tr>
           </thead>
           <tbody>
@@ -140,6 +140,9 @@ const PosRequests = ({ setSearch, searching }) => {
                   {userInfo?.IsAdmin && (
                     <td className="col-sm-1">
                       <Icons>
+                        <Link to={`/transfer/key/${item.id}`}>
+                          <AiOutlineEdit className="Edit box" />
+                        </Link>
                         <AiOutlineDelete
                           className="Delete box"
                           onClick={() => handleDeleteContent(item.id)}

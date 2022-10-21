@@ -14,8 +14,8 @@ const App = () => {
 
   return (
     <Router>
-      <Header setSearch={setSearch} />
-      {userInfo && <SideBar />}
+      <Header setSearch={setSearch} Searching={Searching} />
+      {userInfo && <SideBar setSearch={setSearch} />}
       <div className="content-container t-50px">
         <div className="container-fluid">
           <Suspense

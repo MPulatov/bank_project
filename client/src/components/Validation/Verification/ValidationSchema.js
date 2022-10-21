@@ -206,5 +206,16 @@ export const SchemaVerifyPosRequests = yup.object().shape({
     .min(10, "Пожалуйста, введите не меньше 10 символов.")
     .matches(/^[0-9]+$/, "Пожалуйста, вводите только цифры.")
     .required("Это поле необходимо заполнить."),
-  term_sn: yup.string().min(2).required("Это поле необходимо заполнить."),
+  term_sn: yup
+    .string()
+    .min(10, "Пожалуйста, введите не меньше 10 символов.")
+    .required("Это поле необходимо заполнить."),
+});
+
+export const SchemaVerifyCkmsTransferKey = yup.object().shape({
+  id: yup
+    .string()
+    .required("Это поле необходимо заполнить.")
+    .min(1, "Пожалуйста, введите не меньше 4 символов.")
+    .max(50, "Пожалуйста, введите не болше 50 символов."),
 });

@@ -1,4 +1,4 @@
-const { poolCKMS } = require('../../Config/Database')
+const { poolCKMS, poolKM } = require('../../Config/Database')
 
 class CkmsPosRequestService {
     createPosRequest(data) {
@@ -42,8 +42,8 @@ class CkmsPosRequestService {
 
     getPosRequestById(id) {
         return new Promise((resolve, reject) => {
-            poolCKMS.query(
-                'SELECT pos_requests.id, pos_requests.term_inn, pos_requests.term_ein, pos_requests.term_rnm, pos_requests.term_sn, terminals.imei  FROM pos_requests INNER JOIN cbt_km.terminals ON pos_requests.id = terminals.term_id WHERE pos_requests.id = ? ',
+            poolKM.query(
+                'SELECT retailer.retailer_id, retailer.inn, retailer.ein, retailer.rnm, terminals.imei, terminals.devicesn FROM retailer INNER JOIN cbtfimiposdb.terminals ON retailer.retailer_id = terminals.retailer_id WHERE terminals.imei = ?',
                 [id],
                 (error, results) => {
                     if (error) {

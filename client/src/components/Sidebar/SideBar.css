@@ -36,7 +36,7 @@
 }
 
 .sidebar-navigation li a {
-  padding: 10px 15px 10px 30px;
+  padding: 10px 15px 10px 35px;
   display: block;
   color: #fff;
 }
@@ -73,7 +73,7 @@
   font-size: 12px;
   text-transform: uppercase;
   background-color: #151515;
-  padding: 10px 15px 10px 30px;
+  padding: 10px 15px 10px 15px;
 }
 
 .sidebar-navigation .header::before {

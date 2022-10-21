@@ -2,39 +2,54 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./SideBar.css";
 
-export const SideBar = () => {
+export const SideBar = ({ setSearch }) => {
   //assigning location variable
   const location = useLocation();
   //destructuring pathname from location
   const { pathname } = location;
   //Javascript split method to get the name of the path in array
   const splitLocation = pathname.split("/");
+
+  function handleOnClick() {
+    setSearch("");
+  }
+
   return (
     <>
       <div className="sidebar-container">
-        <div className="sidebar-logo"></div>
+        <div className="sidebar-logo">...</div>
         <ul className="sidebar-navigation">
           <li className="header">KM</li>
 
           <li className={splitLocation[1] === "retailer" ? "active" : ""}>
-            <Link to="/retailer">Retailer</Link>
+            <Link to="/retailer" onClick={handleOnClick}>
+              Retailer
+            </Link>
           </li>
 
           <li className={splitLocation[1] === "terminal" ? "active" : ""}>
-            <Link to="/terminal">Терминал</Link>
+            <Link to="/terminal" onClick={handleOnClick}>
+              Терминал
+            </Link>
           </li>
 
           <li className={splitLocation[1] === "permission" ? "active" : ""}>
-            <Link to="/permission">Terminal Permission</Link>
+            <Link to="/permission" onClick={handleOnClick}>
+              Терминал Permission
+            </Link>
           </li>
 
           <li className="header">SQR</li>
           <li className={splitLocation[1] === "provider" ? "active" : ""}>
-            <Link to="/provider">Провайдер</Link>
+            <Link to="/provider" onClick={handleOnClick}>
+              Провайдер
+            </Link>
           </li>
 
           <li className={splitLocation[1] === "" ? "active" : ""}>
-            <Link to="/">Терминал</Link>
+            <Link to="/" onClick={handleOnClick}>
+              Терминал
+            </Link>
           </li>
 
           <li className="header">CKMS</li>
@@ -42,19 +57,27 @@ export const SideBar = () => {
             <Link to="/posrequests">Идентификаторы Терминала</Link>
           </li> */}
           <li className={splitLocation[1] === "posrequests" ? "active" : ""}>
-            <Link to="/posrequests">Запрос Передачи Ключей</Link>
+            <Link to="/posrequests" onClick={handleOnClick}>
+              Запрос Передачи Ключей
+            </Link>
           </li>
 
           <li className="header">TIJORAT</li>
           <li className={splitLocation[1] === "organization" ? "active" : ""}>
-            <Link to="/organization">Организация</Link>
+            <Link to="/organization" onClick={handleOnClick}>
+              Организация
+            </Link>
           </li>
           <li className={splitLocation[1] === "user" ? "active" : ""}>
-            <Link to="/user">Пользователя</Link>
+            <Link to="/user" onClick={handleOnClick}>
+              Пользователя
+            </Link>
           </li>
 
           <li className={splitLocation[1] === "sale" ? "active" : ""}>
-            <Link to="/sale">Точки Продаж</Link>
+            <Link to="/sale" onClick={handleOnClick}>
+              Точки Продаж
+            </Link>
           </li>
         </ul>
       </div>

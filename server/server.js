@@ -1,13 +1,12 @@
 'use strict'
 const express = require('express')
-// const sequelize = require('./src/Config/db')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
 const { router } = require('./src/Routes/index.routes')
 const { logger } = require('./src/Logger/Winston')
 const errorHandler = require('./src/Middleware/ErrorHandlingMiddleware')
 const { notFound, ErrorHandler } = require('./src/Middleware/ErrorMiddleware')
-// const cors = require('cors')
+// const sequelize = require('./src/Config/db')
 const path = require('path')
 require('dotenv').config()
 
@@ -52,8 +51,8 @@ app.use('/upload', express.static('./upload'))
 
 // Обработка ошибок, последний Middleware
 app.use(errorHandler)
+// app.use(ErrorHandler)
 app.use(notFound)
-app.use(ErrorHandler)
 
 // Подключение Базы Данных
 const start = async () => {

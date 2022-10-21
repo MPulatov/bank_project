@@ -10,6 +10,7 @@ const kmTerminalRouter = require('./kmTerminalRoute')
 const kmTerminalPermissionRouter = require('./kmTerminalPermissionRoute')
 const kmRetailerRouter = require('./kmRetailerRoute')
 const ckmsPosRequestRouter = require('./ckmsPosRequestRoute')
+const ckmsTransferKeyRouter = require('./ckmsTransferKeyRoutes')
 
 router.use('/user', userRouter)
 router.use('/favri/users', tijoratUserRouter)
@@ -21,5 +22,6 @@ router.use('/favri/terminal', kmTerminalRouter)
 router.use('/terminal/permission', kmTerminalPermissionRouter)
 router.use('/retailers', kmRetailerRouter)
 router.use('/posrequests', ckmsPosRequestRouter)
+router.use('/transfer/key', ckmsTransferKeyRouter)
 
 module.exports = { router }
